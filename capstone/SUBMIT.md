@@ -55,12 +55,12 @@ The older version's count is different from the latest, so time travel works. No
 None.
 
 ## Layers in my own words
-- Bronze is a raw copy of the source data plus lineage columns. If something goes wrong later, I can rebuild everything from here.
-- Silver holds clean, typed data with one row per trip. Tests and a quality gate protect it, so other tables can trust it.
-- Gold holds tables built for one use each: a demand mart for dashboards, features for ML, a BI-safe view without PII, and a training set without leakage.
+- **Bronze:** Bronze is a raw copy of the data. I do not clean or change anything here. I only add two columns: when the row arrived and which file it came from. If I make a mistake later, I can build everything again from bronze.
+- **Silver:** Silver is the clean data. I keep only completed trips with correct times, so 48,200 rows become 44,371. There is one row for each trip. dbt tests and a quality gate check the data. If a check fails, the pipeline stops.
+- **Gold:** Gold has tables that are ready to use. One table shows trips per city per hour, for dashboards. One table has features for machine learning. The BI table hides personal data. The training table only uses information from before the trip starts.
 
 ## One design choice
-Each pipeline step runs in its own Python process instead of running every step in one script. Spark's local Derby metastore allows only one Spark session at a time, so separate processes avoid lock errors. It also means a failing step returns a non-zero exit code and the whole run stops (fail-fast), so gold is never built on top of a silver table that failed the quality gate.
+Each step of the pipeline runs as a separate process. Only one Spark session can use the local metastore at a time, so this avoids errors. Also, if one step fails, the whole pipeline stops, so bad data never reaches gold.
 
 ## One thing I would improve
 The pipeline builds bronze again by merging, and that brings back the trips I erased. The quarantine write also adds duplicate rows each time it runs (not idempotent). I would keep a list of erased riders and filter them out in the silver model, and make the quarantine write a MERGE on `trip_id`. I would also add the constraint and the schema change to the pipeline itself, so a clean run includes them.
