@@ -1,0 +1,49 @@
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+	found org.antlr#antlr4-runtime;4.9.3 in central
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+erased rider_00042: v4 deleted=7  rows 44371 -> 44364
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+	found org.antlr#antlr4-runtime;4.9.3 in central
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+layer   table                     rows
+bronze  trips                   48,200
+bronze  drivers                  1,850
+bronze  gps_pings              120,000
+silver  trips                   44,364
+gold    zone_hourly_demand         120
+gold    trip_features           44,371
+gold    bi_trips_safe           44,371
+gold    training_set            44,371
+PII check bi_trips_safe: PASS
+Leakage check training_set: PASS  (features use the prior hour only; label = duration_min)
++-------+-----------------------+---------------------------------+
+|version|timestamp              |operation                        |
++-------+-----------------------+---------------------------------+
+|0      |2026-11-26 08:53:18.04 |CREATE OR REPLACE TABLE AS SELECT|
+|1      |2026-11-26 08:56:02.947|DROP CONSTRAINT                  |
+|2      |2026-11-26 08:56:06.695|ADD CONSTRAINT                   |
+|3      |2026-11-26 08:56:11.151|ADD COLUMNS                      |
+|4      |2026-11-26 08:56:43.359|DELETE                           |
++-------+-----------------------+---------------------------------+
+
+silver/trips versions: 5
+version 0 count: 44,371   latest (v4) count: 44,364   differs: True
+SQL: SELECT COUNT(*) FROM delta.`/workspaces/masar-lakehouse/lakehouse/silver/trips` VERSION AS OF 0

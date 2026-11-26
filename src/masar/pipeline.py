@@ -1,73 +1,52 @@
+"""Capstone step 6: run the whole pipeline with `make pipeline`.
+
+Each step runs in its own Python process, so only ONE Spark session (and one
+lock on the local Derby metastore) is alive at a time. The first failing step
+stops the pipeline with exit code 1 (fail-fast), so nothing downstream is built
+on bad data.
+"""
 import os
 import subprocess
 import sys
 import time
+from pathlib import Path
 
-from masar.config import LAKEHOUSE, ROOT
-from masar.quality.contract import INTEGRITY, load, validate
-from masar.transform.build_gold import (build_trip_features,
-                                        build_zone_hourly_demand,
-                                        optimize_and_vacuum)
+ROOT = Path(__file__).resolve().parents[2]
+PY = sys.executable
+# use the dbt that lives next to this Python (.venv/bin/dbt), else the one on PATH
+DBT = str(Path(PY).parent / "dbt") if (Path(PY).parent / "dbt").exists() else "dbt"
+DBT_DIR = str(ROOT / "dbt" / "masar")
 
-
-def _sh(*cmd, cwd=ROOT):
-    env = {**os.environ, "PYTHONPATH": str(ROOT / "src"), "MASAR_HOME": str(ROOT)}
-    subprocess.run(cmd, cwd=cwd, env=env, check=True)
-
-
-def land_bronze():
-    if (LAKEHOUSE / "bronze" / "trips" / "_delta_log").exists():
-        print("  bronze already landed: skipping")
-        return
-    _sh(sys.executable, "-m", "masar.ingest.land_bronze")
-
-
-def register_bronze():
-    _sh(sys.executable, "-m", "masar.register")
-
-
-def build_silver():
-    _sh("dbt", "run", "--select", "silver_trips", cwd=ROOT / "dbt" / "masar")
-
-def quality_check():
-    results = validate(load("silver"))
-    for name, r in results.items():
-        print(f"  {name:18} passed={r['passed']!s:5} bad_rows={r['bad_rows']}")
-    broken = [n for n in INTEGRITY if not results[n]["passed"]]
-    if broken:
-        raise RuntimeError(f"FAIL-FAST: integrity checks failed {broken}")
-    failed = [n for n, r in results.items() if not r["passed"]]
-    if failed:
-        raise RuntimeError(f"quality checks failed: {failed}")
-
-TASKS = [  # (name, function, depends_on)
-    ("land_bronze",        land_bronze,              []),
-    ("register_bronze",    register_bronze,          ["land_bronze"]),
-    ("build_silver",       build_silver,             ["register_bronze"]),
-    ("quality_check",      quality_check,            ["build_silver"]),
-    ("gold_zone_demand",   build_zone_hourly_demand, ["quality_check"]),
-    ("gold_trip_features", build_trip_features,      ["quality_check"]),
-    ("optimize_vacuum",    optimize_and_vacuum,      ["gold_zone_demand", "gold_trip_features"]),
+STEPS = [
+    # (name, command)
+    ("1 land bronze",          [PY, "-m", "masar.ingest.land_bronze"]),
+    ("2 register bronze",      [PY, "-m", "masar.register"]),
+    ("3 dbt build silver",     [DBT, "build", "--project-dir", DBT_DIR, "--profiles-dir", DBT_DIR]),
+    ("4 quality gate",         [PY, "-m", "masar.quality.silver_gate"]),
+    ("5 gold marts",           [PY, "-c", "from masar.transform.build_gold import "
+                                          "build_zone_hourly_demand, build_trip_features; "
+                                          "build_zone_hourly_demand(); build_trip_features()"]),
+    ("6a consumer: BI-safe",   [PY, "-m", "masar.serve.bi_view"]),
+    ("6b consumer: training",  [PY, "-m", "masar.serve.training_join"]),
+    ("7 counts per layer",     [PY, "-m", "masar.proof", "counts"]),
 ]
 
-def run(retries: int = 2) -> None:
-    done = set()
-    for name, fn, deps in TASKS:
-        assert set(deps) <= done, f"{name} would run before {deps}"
-        for attempt in range(retries + 1):
-            try:
-                if os.environ.get("MASAR_FAIL_TASK") == name:
-                    raise RuntimeError("injected failure")
-                fn()
-                print(f"[{name}] OK")
-                done.add(name)
-                break
-            except Exception as e:
-                print(f"[{name}] attempt {attempt + 1} failed: {e}")
-                if attempt == retries:
-                    print("PIPELINE HALTED")
-                    sys.exit(1)
-                time.sleep(2)
+
+def run(name, cmd):
+    print(f"\n=== [{name}] " + " ".join(Path(c).name if i == 0 else c for i, c in enumerate(cmd)), flush=True)
+    env = {**os.environ, "PYTHONPATH": str(ROOT / "src"), "MASAR_HOME": str(ROOT)}
+    start = time.time()
+    if subprocess.run(cmd, cwd=ROOT, env=env).returncode != 0:
+        print(f"=== [{name}] FAILED: pipeline halted (fail-fast)")
+        sys.exit(1)
+    print(f"=== [{name}] OK ({time.time() - start:.0f}s)")
+
+
+def main():
+    for name, cmd in STEPS:
+        run(name, cmd)
+    print("\nPIPELINE OK")
+
 
 if __name__ == "__main__":
-    run()
+    main()

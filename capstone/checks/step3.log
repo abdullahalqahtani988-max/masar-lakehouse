@@ -1,0 +1,49 @@
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+	found org.antlr#antlr4-runtime;4.9.3 in central
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/26 08:56:10 ERROR Utils: Aborting task
+org.apache.spark.sql.delta.schema.DeltaInvariantViolationException: [DELTA_VIOLATE_CONSTRAINT_WITH_VALUES] CHECK constraint positive_fare (fare_sar > 0) violated by row with values:
+ - fare_sar : -5.0
+26/11/26 08:56:10 ERROR DeltaFileFormatWriter: Job job_202611260856096637685959501802072_0028 aborted.
+26/11/26 08:56:10 ERROR Executor: Exception in task 0.0 in stage 28.0 (TID 268)
+org.apache.spark.SparkException: [TASK_WRITE_FAILED] Task failed while writing rows to file:/workspaces/masar-lakehouse/lakehouse/silver/trips.
+Caused by: org.apache.spark.sql.delta.schema.DeltaInvariantViolationException: [DELTA_VIOLATE_CONSTRAINT_WITH_VALUES] CHECK constraint positive_fare (fare_sar > 0) violated by row with values:
+ - fare_sar : -5.0
+	... 12 more
+Caused by: org.apache.spark.sql.delta.schema.DeltaInvariantViolationException: [DELTA_VIOLATE_CONSTRAINT_WITH_VALUES] CHECK constraint positive_fare (fare_sar > 0) violated by row with values:
+ - fare_sar : -5.0
+	... 12 more
+
+26/11/26 08:56:10 ERROR TaskSetManager: Task 0 in stage 28.0 failed 1 times; aborting job
+26/11/26 08:56:10 ERROR DeltaFileFormatWriter: Aborting job a0d83ad6-6b20-47a6-85fc-f99d2e1edaeb.
+org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 28.0 failed 1 times, most recent failure: Lost task 0.0 in stage 28.0 (TID 268) (5b534178-04c1-4547-8509-0365227d6bb5.internal.cloudapp.net executor driver): org.apache.spark.SparkException: [TASK_WRITE_FAILED] Task failed while writing rows to file:/workspaces/masar-lakehouse/lakehouse/silver/trips.
+Caused by: org.apache.spark.sql.delta.schema.DeltaInvariantViolationException: [DELTA_VIOLATE_CONSTRAINT_WITH_VALUES] CHECK constraint positive_fare (fare_sar > 0) violated by row with values:
+ - fare_sar : -5.0
+	... 12 more
+
+Driver stacktrace:
+Caused by: org.apache.spark.SparkException: [TASK_WRITE_FAILED] Task failed while writing rows to file:/workspaces/masar-lakehouse/lakehouse/silver/trips.
+	... 1 more
+Caused by: org.apache.spark.sql.delta.schema.DeltaInvariantViolationException: [DELTA_VIOLATE_CONSTRAINT_WITH_VALUES] CHECK constraint positive_fare (fare_sar > 0) violated by row with values:
+ - fare_sar : -5.0
+	... 12 more
+constraint added: positive_fare CHECK (fare_sar > 0)
+bad insert REJECTED as expected: Py4JJavaError: An error occurred while calling o63.save.
+rows before=44,371 after bad insert=44,371 (unchanged: True)
+schema change: added nullable column promo_code STRING
+new column visible: True; non-null values: 0
++--------+-------------------------------------------------+
+|numFiles|properties                                       |
++--------+-------------------------------------------------+
+|2       |{delta.constraints.positive_fare -> fare_sar > 0}|
++--------+-------------------------------------------------+
+

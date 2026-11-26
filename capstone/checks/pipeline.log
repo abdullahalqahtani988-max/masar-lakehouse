@@ -1,0 +1,395 @@
+python3 -m masar.pipeline
+
+=== [1 land bronze] python3 -m masar.ingest.land_bronze
+26/11/26 08:52:13 WARN Utils: Your hostname, codespaces-b6b53f resolves to a loopback address: 127.0.0.1; using 10.0.10.250 instead (on interface eth0)
+26/11/26 08:52:13 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/home/vscode/.local/lib/python3.11/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/vscode/.ivy2/cache
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-bbf60bdf-266e-4551-b1ca-b53f83af9180;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+:: resolution report :: resolve 229ms :: artifacts dl 13ms
+	:: modules in use:
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-bbf60bdf-266e-4551-b1ca-b53f83af9180
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/5ms)
+26/11/26 08:52:14 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/26 08:52:27 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+26/11/26 08:52:30 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+26/11/26 08:52:31 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+landed
+=== [1 land bronze] OK (38s)
+
+=== [2 register bronze] python3 -m masar.register
+26/11/26 08:52:33 WARN Utils: Your hostname, codespaces-b6b53f resolves to a loopback address: 127.0.0.1; using 10.0.10.250 instead (on interface eth0)
+26/11/26 08:52:33 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/home/vscode/.local/lib/python3.11/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/vscode/.ivy2/cache
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-d9ce6508-3dfe-4bb9-8e83-e48424974827;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+:: resolution report :: resolve 151ms :: artifacts dl 7ms
+	:: modules in use:
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-d9ce6508-3dfe-4bb9-8e83-e48424974827
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/6ms)
+26/11/26 08:52:34 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/26 08:52:38 WARN HiveConf: HiveConf of name hive.stats.jdbc.timeout does not exist
+26/11/26 08:52:38 WARN HiveConf: HiveConf of name hive.stats.retries.wait does not exist
+26/11/26 08:52:41 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 2.3.0
+26/11/26 08:52:41 WARN ObjectStore: setMetaStoreSchemaVersion called but recording version is disabled: version = 2.3.0, comment = Set by MetaStore vscode@127.0.0.1
+26/11/26 08:52:41 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+26/11/26 08:52:41 WARN ObjectStore: Failed to get database bronze, returning NoSuchObjectException
+26/11/26 08:52:41 WARN ObjectStore: Failed to get database bronze, returning NoSuchObjectException
+26/11/26 08:52:41 WARN ObjectStore: Failed to get database global_temp, returning NoSuchObjectException
+26/11/26 08:52:41 WARN ObjectStore: Failed to get database bronze, returning NoSuchObjectException
+26/11/26 08:52:45 WARN HiveExternalCatalog: Couldn't find corresponding Hive SerDe for data source provider delta. Persisting data source table `spark_catalog`.`bronze`.`trips` into Hive metastore in Spark SQL specific format, which is NOT compatible with Hive.
+26/11/26 08:52:45 WARN SessionState: METASTORE_FILTER_HOOK will be ignored, since hive.security.authorization.manager is set to instance of HiveAuthorizerFactory.
+26/11/26 08:52:45 WARN HiveConf: HiveConf of name hive.internal.ss.authz.settings.applied.marker does not exist
+26/11/26 08:52:45 WARN HiveConf: HiveConf of name hive.stats.jdbc.timeout does not exist
+26/11/26 08:52:45 WARN HiveConf: HiveConf of name hive.stats.retries.wait does not exist
+26/11/26 08:52:46 WARN HiveExternalCatalog: Couldn't find corresponding Hive SerDe for data source provider delta. Persisting data source table `spark_catalog`.`bronze`.`drivers` into Hive metastore in Spark SQL specific format, which is NOT compatible with Hive.
+26/11/26 08:52:46 WARN HiveExternalCatalog: Couldn't find corresponding Hive SerDe for data source provider delta. Persisting data source table `spark_catalog`.`bronze`.`gps_pings` into Hive metastore in Spark SQL specific format, which is NOT compatible with Hive.
+registered bronze.trips
+registered bronze.drivers
+registered bronze.gps_pings
+=== [2 register bronze] OK (15s)
+
+=== [3 dbt build silver] dbt build --project-dir /workspaces/masar-lakehouse/dbt/masar --profiles-dir /workspaces/masar-lakehouse/dbt/masar
+[0m08:52:53  Running with dbt=1.8.10
+[0m08:52:53  This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+[0m08:52:54  Registered adapter: spark=1.8.0
+[0m08:52:54  Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m08:52:55  [[33mWARNING[0m]: Deprecated functionality
+The `tests` config has been renamed to `data_tests`. Please see
+https://docs.getdbt.com/docs/build/data-tests#new-data_tests-syntax for more
+information.
+[0m08:52:55  Found 4 models, 5 data tests, 3 sources, 588 macros
+[0m08:52:55  
+26/11/26 08:52:57 WARN Utils: Your hostname, codespaces-b6b53f resolves to a loopback address: 127.0.0.1; using 10.0.10.250 instead (on interface eth0)
+26/11/26 08:52:57 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/home/vscode/.local/lib/python3.11/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/vscode/.ivy2/cache
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-4bb64455-f1ea-407c-937e-c7ba0cbc5291;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+:: resolution report :: resolve 169ms :: artifacts dl 8ms
+	:: modules in use:
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-4bb64455-f1ea-407c-937e-c7ba0cbc5291
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/5ms)
+26/11/26 08:52:57 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/26 08:53:01 WARN HiveConf: HiveConf of name hive.stats.jdbc.timeout does not exist
+26/11/26 08:53:01 WARN HiveConf: HiveConf of name hive.stats.retries.wait does not exist
+26/11/26 08:53:03 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 2.3.0
+26/11/26 08:53:03 WARN ObjectStore: setMetaStoreSchemaVersion called but recording version is disabled: version = 2.3.0, comment = Set by MetaStore vscode@127.0.0.1
+26/11/26 08:53:04 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+26/11/26 08:53:04 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+26/11/26 08:53:04 WARN ObjectStore: Failed to get database silver, returning NoSuchObjectException
+26/11/26 08:53:04 WARN ObjectStore: Failed to get database silver, returning NoSuchObjectException
+26/11/26 08:53:04 WARN ObjectStore: Failed to get database global_temp, returning NoSuchObjectException
+26/11/26 08:53:04 WARN ObjectStore: Failed to get database silver, returning NoSuchObjectException
+26/11/26 08:53:04 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+26/11/26 08:53:04 WARN HiveConf: HiveConf of name hive.stats.jdbc.timeout does not exist
+26/11/26 08:53:04 WARN HiveConf: HiveConf of name hive.stats.retries.wait does not exist
+26/11/26 08:53:04 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+[0m08:53:04  Concurrency: 1 threads (target='dev')
+[0m08:53:04  
+[0m08:53:04  1 of 9 START sql view model default.stg_drivers ................................ [RUN]
+26/11/26 08:53:04 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+26/11/26 08:53:04 WARN HiveConf: HiveConf of name hive.stats.jdbc.timeout does not exist
+26/11/26 08:53:04 WARN HiveConf: HiveConf of name hive.stats.retries.wait does not exist
+26/11/26 08:53:07 WARN SessionState: METASTORE_FILTER_HOOK will be ignored, since hive.security.authorization.manager is set to instance of HiveAuthorizerFactory.
+26/11/26 08:53:07 WARN HiveConf: HiveConf of name hive.internal.ss.authz.settings.applied.marker does not exist
+26/11/26 08:53:07 WARN HiveConf: HiveConf of name hive.stats.jdbc.timeout does not exist
+26/11/26 08:53:07 WARN HiveConf: HiveConf of name hive.stats.retries.wait does not exist
+[0m08:53:07  1 of 9 OK created sql view model default.stg_drivers ........................... [[32mOK[0m in 2.96s]
+[0m08:53:07  2 of 9 START sql view model default.stg_trips .................................. [RUN]
+26/11/26 08:53:07 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+[0m08:53:07  2 of 9 OK created sql view model default.stg_trips ............................. [[32mOK[0m in 0.31s]
+[0m08:53:07  3 of 9 START sql view model default.x_stg_gps_pings ............................ [RUN]
+26/11/26 08:53:07 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+[0m08:53:08  3 of 9 OK created sql view model default.x_stg_gps_pings ....................... [[32mOK[0m in 0.24s]
+[0m08:53:08  4 of 9 START sql incremental model silver.trips ................................ [RUN]
+26/11/26 08:53:08 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+26/11/26 08:53:09 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+[Stage 5:>                                                         (0 + 4) / 50][Stage 5:>                                                         (0 + 8) / 50][Stage 5:======>                                                   (6 + 4) / 50][Stage 5:=============>                                           (12 + 4) / 50][Stage 5:====================>                                    (18 + 4) / 50][Stage 5:============================>                            (25 + 4) / 50][Stage 5:=====================================>                   (33 + 4) / 50][Stage 5:==============================================>          (41 + 4) / 50][Stage 5:======================================================>  (48 + 2) / 50]                                                                                [Stage 11:=====================>                                  (19 + 5) / 50][Stage 11:=================================>                      (30 + 4) / 50][Stage 11:=============================================>          (41 + 4) / 50]                                                                                [Stage 15:>                                                         (0 + 2) / 2][Stage 15:=============================>                            (1 + 1) / 2]                                                                                26/11/26 08:53:18 WARN HiveExternalCatalog: Couldn't find corresponding Hive SerDe for data source provider delta. Persisting data source table `spark_catalog`.`silver`.`trips` into Hive metastore in Spark SQL specific format, which is NOT compatible with Hive.
+[0m08:53:18  4 of 9 OK created sql incremental model silver.trips ........................... [[32mOK[0m in 10.17s]
+[0m08:53:18  5 of 9 START test accepted_values_silver_trips_city__Riyadh__Jeddah__Dammam__Mecca__Medina  [RUN]
+26/11/26 08:53:18 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+[Stage 19:=============================>                          (26 + 4) / 50][Stage 19:========================================>               (36 + 4) / 50][Stage 19:=====================================================>  (48 + 2) / 50]                                                                                [0m08:53:20  5 of 9 PASS accepted_values_silver_trips_city__Riyadh__Jeddah__Dammam__Mecca__Medina  [[32mPASS[0m in 1.86s]
+[0m08:53:20  6 of 9 START test dbt_utils_accepted_range_silver_trips_fare_sar__False__0 ..... [RUN]
+26/11/26 08:53:20 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+[0m08:53:20  6 of 9 PASS dbt_utils_accepted_range_silver_trips_fare_sar__False__0 ........... [[32mPASS[0m in 0.61s]
+[0m08:53:20  7 of 9 START test not_null_silver_trips_trip_id ................................ [RUN]
+26/11/26 08:53:20 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+[0m08:53:21  7 of 9 PASS not_null_silver_trips_trip_id ...................................... [[32mPASS[0m in 0.50s]
+[0m08:53:21  8 of 9 START test relationships_silver_trips_driver_id__driver_id__ref_stg_drivers_  [RUN]
+26/11/26 08:53:21 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+[0m08:53:22  8 of 9 PASS relationships_silver_trips_driver_id__driver_id__ref_stg_drivers_ .. [[32mPASS[0m in 0.93s]
+[0m08:53:22  9 of 9 START test unique_silver_trips_trip_id .................................. [RUN]
+26/11/26 08:53:22 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+[0m08:53:22  9 of 9 PASS unique_silver_trips_trip_id ........................................ [[32mPASS[0m in 0.65s]
+[0m08:53:22  
+[0m08:53:22  Finished running 3 view models, 1 incremental model, 5 data tests in 0 hours 0 minutes and 26.96 seconds (26.96s).
+[0m08:53:22  
+[0m08:53:22  [32mCompleted successfully[0m
+[0m08:53:22  
+[0m08:53:22  Done. PASS=9 WARN=0 ERROR=0 SKIP=0 TOTAL=9
+=== [3 dbt build silver] OK (38s)
+
+=== [4 quality gate] python3 -m masar.quality.silver_gate
+26/11/26 08:53:42 WARN Utils: Your hostname, codespaces-b6b53f resolves to a loopback address: 127.0.0.1; using 10.0.10.250 instead (on interface eth0)
+26/11/26 08:53:42 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/home/vscode/.local/lib/python3.11/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/vscode/.ivy2/cache
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-25e9ed0a-72db-4a2f-b60e-cb6fd461be6a;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+:: resolution report :: resolve 156ms :: artifacts dl 8ms
+	:: modules in use:
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-25e9ed0a-72db-4a2f-b60e-cb6fd461be6a
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/6ms)
+26/11/26 08:53:43 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/26 08:53:49 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+silver/trips rows: 44,371
+Calculating Metrics:   0%|          | 0/8 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/8 [00:00<?, ?it/s]Calculating Metrics:  25%|██▌       | 2/8 [00:00<00:00, 103.68it/s]Calculating Metrics:  25%|██▌       | 2/8 [00:00<00:00, 94.82it/s] Calculating Metrics:  50%|█████     | 4/8 [00:01<00:01,  2.60it/s]Calculating Metrics:  50%|█████     | 4/8 [00:01<00:01,  2.60it/s]Calculating Metrics:  50%|█████     | 4/8 [00:01<00:01,  2.60it/s]Calculating Metrics:  62%|██████▎   | 5/8 [00:01<00:01,  2.60it/s]Calculating Metrics:  62%|██████▎   | 5/8 [00:01<00:01,  2.60it/s]Calculating Metrics:  88%|████████▊ | 7/8 [00:01<00:00,  4.89it/s]Calculating Metrics:  88%|████████▊ | 7/8 [00:01<00:00,  4.89it/s]Calculating Metrics:  88%|████████▊ | 7/8 [00:01<00:00,  4.89it/s]Calculating Metrics: 100%|██████████| 8/8 [00:01<00:00,  4.89it/s]Calculating Metrics: 100%|██████████| 8/8 [00:01<00:00,  4.89it/s]Calculating Metrics: 100%|██████████| 8/8 [00:01<00:00,  4.89it/s]Calculating Metrics: 100%|██████████| 8/8 [00:01<00:00,  4.56it/s]
+Calculating Metrics:   0%|          | 0/10 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/10 [00:00<?, ?it/s]Calculating Metrics:  20%|██        | 2/10 [00:00<00:00, 895.07it/s]Calculating Metrics:  20%|██        | 2/10 [00:00<00:00, 446.20it/s]Calculating Metrics:  40%|████      | 4/10 [00:00<00:00, 51.30it/s] Calculating Metrics:  40%|████      | 4/10 [00:00<00:00, 49.00it/s]Calculating Metrics:  60%|██████    | 6/10 [00:00<00:00, 64.94it/s]Calculating Metrics:  60%|██████    | 6/10 [00:00<00:00, 63.78it/s]Calculating Metrics:  90%|█████████ | 9/10 [00:00<00:00, 11.51it/s]Calculating Metrics:  90%|█████████ | 9/10 [00:00<00:00, 11.51it/s]Calculating Metrics:  90%|█████████ | 9/10 [00:00<00:00, 11.51it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 11.51it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 11.51it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 11.51it/s]Calculating Metrics: 100%|██████████| 10/10 [00:00<00:00, 11.74it/s]
+Calculating Metrics:   0%|          | 0/1 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/1 [00:00<?, ?it/s]Calculating Metrics: 100%|██████████| 1/1 [00:00<00:00, 4634.59it/s]Calculating Metrics: 100%|██████████| 1/1 [00:00<00:00, 3141.80it/s]Calculating Metrics: 100%|██████████| 1/1 [00:00<00:00, 2728.89it/s]Calculating Metrics: 100%|██████████| 1/1 [00:00<00:00, 2291.97it/s]
+Calculating Metrics:   0%|          | 0/11 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/11 [00:00<?, ?it/s]Calculating Metrics:  18%|█▊        | 2/11 [00:00<00:00, 895.93it/s]Calculating Metrics:  18%|█▊        | 2/11 [00:00<00:00, 353.74it/s]Calculating Metrics:  36%|███▋      | 4/11 [00:00<00:00, 54.15it/s] Calculating Metrics:  36%|███▋      | 4/11 [00:00<00:00, 51.82it/s]Calculating Metrics:  55%|█████▍    | 6/11 [00:00<00:00, 73.51it/s]Calculating Metrics:  55%|█████▍    | 6/11 [00:00<00:00, 71.16it/s]Calculating Metrics:  82%|████████▏ | 9/11 [00:00<00:00, 46.59it/s]Calculating Metrics:  82%|████████▏ | 9/11 [00:00<00:00, 46.59it/s]Calculating Metrics:  82%|████████▏ | 9/11 [00:00<00:00, 46.59it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 46.59it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 46.59it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 46.59it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 31.40it/s]
+Calculating Metrics:   0%|          | 0/11 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/11 [00:00<?, ?it/s]Calculating Metrics:  18%|█▊        | 2/11 [00:00<00:00, 806.67it/s]Calculating Metrics:  18%|█▊        | 2/11 [00:00<00:00, 280.67it/s]Calculating Metrics:  36%|███▋      | 4/11 [00:00<00:00, 59.34it/s] Calculating Metrics:  36%|███▋      | 4/11 [00:00<00:00, 56.90it/s]Calculating Metrics:  55%|█████▍    | 6/11 [00:00<00:00, 75.66it/s]Calculating Metrics:  55%|█████▍    | 6/11 [00:00<00:00, 73.48it/s]Calculating Metrics:  82%|████████▏ | 9/11 [00:00<00:00, 32.79it/s]Calculating Metrics:  82%|████████▏ | 9/11 [00:00<00:00, 32.79it/s]Calculating Metrics:  82%|████████▏ | 9/11 [00:00<00:00, 32.79it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 32.79it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 32.79it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 32.79it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 25.31it/s]
+Calculating Metrics:   0%|          | 0/11 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/11 [00:00<?, ?it/s]Calculating Metrics:  18%|█▊        | 2/11 [00:00<00:00, 740.32it/s]Calculating Metrics:  18%|█▊        | 2/11 [00:00<00:00, 331.57it/s]Calculating Metrics:  36%|███▋      | 4/11 [00:00<00:00, 43.09it/s] Calculating Metrics:  36%|███▋      | 4/11 [00:00<00:00, 40.67it/s]Calculating Metrics:  55%|█████▍    | 6/11 [00:00<00:00, 54.08it/s]Calculating Metrics:  55%|█████▍    | 6/11 [00:00<00:00, 54.08it/s]Calculating Metrics:  55%|█████▍    | 6/11 [00:00<00:00, 54.08it/s]Calculating Metrics:  82%|████████▏ | 9/11 [00:00<00:00, 54.08it/s]Calculating Metrics:  82%|████████▏ | 9/11 [00:00<00:00, 54.08it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 54.08it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 54.08it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 54.08it/s]Calculating Metrics: 100%|██████████| 11/11 [00:00<00:00, 29.05it/s]
+Calculating Metrics:   0%|          | 0/6 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/6 [00:00<?, ?it/s]Calculating Metrics:  33%|███▎      | 2/6 [00:00<00:00, 931.96it/s]Calculating Metrics:  33%|███▎      | 2/6 [00:00<00:00, 642.81it/s]Calculating Metrics:  67%|██████▋   | 4/6 [00:00<00:00, 51.00it/s] Calculating Metrics:  67%|██████▋   | 4/6 [00:00<00:00, 50.18it/s]Calculating Metrics:  83%|████████▎ | 5/6 [00:00<00:00, 60.45it/s]Calculating Metrics:  83%|████████▎ | 5/6 [00:00<00:00, 59.98it/s]Calculating Metrics: 100%|██████████| 6/6 [00:00<00:00, 29.64it/s]Calculating Metrics: 100%|██████████| 6/6 [00:00<00:00, 29.64it/s]Calculating Metrics: 100%|██████████| 6/6 [00:00<00:00, 29.64it/s]Calculating Metrics: 100%|██████████| 6/6 [00:00<00:00, 29.64it/s]Calculating Metrics: 100%|██████████| 6/6 [00:00<00:00, 29.55it/s]
+  trip_id_not_null   passed=True  bad_rows=0
+  trip_id_unique     passed=True  bad_rows=0
+  fare_is_double     passed=True  bad_rows=0
+  fare_positive      passed=True  bad_rows=0
+  city_known         passed=True  bad_rows=0
+  duration_sane      passed=True  bad_rows=0
+  fare_mean_sane     passed=True  bad_rows=0
+quality gate: all checks passed
+=== [4 quality gate] OK (36s)
+
+=== [5 gold marts] python3 -c from masar.transform.build_gold import build_zone_hourly_demand, build_trip_features; build_zone_hourly_demand(); build_trip_features()
+26/11/26 08:54:01 WARN Utils: Your hostname, codespaces-b6b53f resolves to a loopback address: 127.0.0.1; using 10.0.10.250 instead (on interface eth0)
+26/11/26 08:54:01 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/home/vscode/.local/lib/python3.11/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/vscode/.ivy2/cache
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-23137a60-58b1-49ea-8895-02664be44a62;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+:: resolution report :: resolve 154ms :: artifacts dl 8ms
+	:: modules in use:
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-23137a60-58b1-49ea-8895-02664be44a62
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/5ms)
+26/11/26 08:54:02 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/26 08:54:09 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+26/11/26 08:54:18 WARN SparkSession: Using an existing Spark session; only runtime SQL configurations will take effect.
+  zone_hourly_demand rows: 120
+  trip_features rows: 44,371
+=== [5 gold marts] OK (22s)
+
+=== [6a consumer: BI-safe] python3 -m masar.serve.bi_view
+26/11/26 08:54:23 WARN Utils: Your hostname, codespaces-b6b53f resolves to a loopback address: 127.0.0.1; using 10.0.10.250 instead (on interface eth0)
+26/11/26 08:54:23 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/home/vscode/.local/lib/python3.11/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/vscode/.ivy2/cache
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-489eaf60-0b02-46dd-b68e-0a075c967c7f;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+:: resolution report :: resolve 167ms :: artifacts dl 9ms
+	:: modules in use:
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-489eaf60-0b02-46dd-b68e-0a075c967c7f
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/6ms)
+26/11/26 08:54:24 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/26 08:54:31 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+bi_trips_safe rows: 44,371
+columns: ['trip_id', 'city', 'rider_pseudonym', 'driver_pseudonym', 'dropoff_area', 'fare_sar', 'distance_km', 'duration_min', 'started_at']
+=== [6a consumer: BI-safe] OK (18s)
+
+=== [6b consumer: training] python3 -m masar.serve.training_join
+26/11/26 08:54:41 WARN Utils: Your hostname, codespaces-b6b53f resolves to a loopback address: 127.0.0.1; using 10.0.10.250 instead (on interface eth0)
+26/11/26 08:54:41 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/home/vscode/.local/lib/python3.11/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/vscode/.ivy2/cache
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-eb155e36-1317-4ff1-acbb-914d7d165859;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+:: resolution report :: resolve 155ms :: artifacts dl 8ms
+	:: modules in use:
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-eb155e36-1317-4ff1-acbb-914d7d165859
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/5ms)
+26/11/26 08:54:42 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/26 08:54:49 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+training rows: 44,371
+columns: ['trip_id', 'city', 'started_at', 'start_hour', 'is_night', 'surge_multiplier', 'zone_demand_prev_hr', '_feature_version', 'label', '_trained_on_feature_version']
++--------+------+-------------------+----------+--------+----------------+-------------------+----------------+---------+---------------------------+
+|trip_id |city  |started_at         |start_hour|is_night|surge_multiplier|zone_demand_prev_hr|_feature_version|label    |_trained_on_feature_version|
++--------+------+-------------------+----------+--------+----------------+-------------------+----------------+---------+---------------------------+
+|T-016337|Dammam|2026-06-01 00:02:18|0         |1       |1.0             |0                  |v1              |26.983333|v1                         |
+|T-000668|Dammam|2026-06-01 00:02:45|0         |1       |1.0             |1                  |v1              |29.516667|v1                         |
+|T-000075|Dammam|2026-06-01 00:03:35|0         |1       |1.2             |2                  |v1              |63.483333|v1                         |
+|T-037941|Dammam|2026-06-01 00:07:43|0         |1       |1.0             |3                  |v1              |17.400000|v1                         |
+|T-037675|Dammam|2026-06-01 00:10:00|0         |1       |1.0             |4                  |v1              |26.216667|v1                         |
++--------+------+-------------------+----------+--------+----------------+-------------------+----------------+---------+---------------------------+
+only showing top 5 rows
+
+=== [6b consumer: training] OK (20s)
+
+=== [7 counts per layer] python3 -m masar.proof counts
+26/11/26 08:55:01 WARN Utils: Your hostname, codespaces-b6b53f resolves to a loopback address: 127.0.0.1; using 10.0.10.250 instead (on interface eth0)
+26/11/26 08:55:01 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/home/vscode/.local/lib/python3.11/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/vscode/.ivy2/cache
+The jars for the packages stored in: /home/vscode/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-7b8a5d28-a46b-46f4-a764-3525117e27bd;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.2.0 in central
+	found io.delta#delta-storage;3.2.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+:: resolution report :: resolve 169ms :: artifacts dl 8ms
+	:: modules in use:
+	io.delta#delta-spark_2.12;3.2.0 from central in [default]
+	io.delta#delta-storage;3.2.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-7b8a5d28-a46b-46f4-a764-3525117e27bd
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/5ms)
+26/11/26 08:55:01 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/26 08:55:08 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+layer   table                     rows
+bronze  trips                   48,200
+bronze  drivers                  1,850
+bronze  gps_pings              120,000
+silver  trips                   44,371
+gold    zone_hourly_demand         120
+gold    trip_features           44,371
+gold    bi_trips_safe           44,371
+gold    training_set            44,371
+PII check bi_trips_safe: PASS
+Leakage check training_set: PASS  (features use the prior hour only; label = duration_min)
+=== [7 counts per layer] OK (24s)
+
+PIPELINE OK
+
+real	3m29.840s
+user	0m11.633s
+sys	0m3.327s
